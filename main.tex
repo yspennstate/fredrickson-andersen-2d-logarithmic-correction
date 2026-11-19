@@ -1,0 +1,306 @@
+\documentclass[11pt]{article}
+
+\usepackage[margin=1.1in]{geometry}
+\usepackage{amsmath,amssymb,amsthm,mathtools}
+\usepackage{hyperref}
+\usepackage[nameinlink,noabbrev]{cleveref}
+
+\hypersetup{colorlinks=true,linkcolor=blue,citecolor=blue,urlcolor=blue}
+
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{corollary}[theorem]{Corollary}
+\newtheorem{conjecture}[theorem]{Conjecture}
+\theoremstyle{remark}
+\newtheorem{remark}[theorem]{Remark}
+
+\newcommand{\Z}{\mathbb Z}
+\newcommand{\E}{\mathbb E}
+\newcommand{\1}{\mathbf 1}
+\DeclareMathOperator{\Var}{Var}
+\DeclareMathOperator{\Cov}{Cov}
+\DeclareMathOperator{\gap}{gap}
+\newcommand{\Trel}{T_{\mathrm{rel}}}
+
+\title{The logarithmic correction to the relaxation time of the\\
+two-dimensional Fredrickson--Andersen one-spin facilitated model}
+\author{Yitzchak Shmalo\\
+Einstein Institute of Mathematics, The Hebrew University of Jerusalem\\
+Givat Ram, Jerusalem, Israel\\
+\texttt{yitzchak.shmalo@gmail.com}}
+\date{19 November 2026}
+
+\begin{document}
+\maketitle
+
+\begin{abstract}
+For the Fredrickson--Andersen one-spin facilitated model on $\Z^2$ with density $q$ of empty sites, we prove that the spectral gap is at most $(320/9)\,q^2/H_R$, where $H_R$ is the harmonic number of $R=\lfloor 1/(4\sqrt q)\rfloor$. Together with the lower bound of Cancrini, Martinelli, Roberto and Toninelli, this shows that the relaxation time is of order $q^{-2}\log(1/q)$ as $q\to0$, which is Conjecture~4.3 in the monograph of Hartarsky and Toninelli. The test function is $H_R^{-1}\sum_{r\le R}K_r/r$, where $K_r$ is the number of clusters of the graph on the empty sites of a box in which two empty sites are adjacent when their $\ell^1$ distance is at most $r$.
+\end{abstract}
+
+\noindent\textbf{Keywords:} kinetically constrained models, Fredrickson--Andersen model, spectral gap, relaxation time, interacting particle systems.
+
+\noindent\textbf{MSC 2020:} 60K35, 82C22.
+
+\section{Introduction}
+
+The Fredrickson--Andersen one-spin facilitated model (FA-1f) was introduced in \cite{FA} as a model of the glass transition. It is the simplest kinetically constrained model: each site of $\Z^d$ is empty or occupied, and a site is resampled from its equilibrium law at rate one, but only when at least one of its nearest neighbours is empty. When the density $q$ of empty sites is small the dynamics is slow, because empty sites are rare and a site can change only next to an empty site.
+
+The scaling of the relaxation time $\Trel$ as $q\to0$ was studied by Cancrini, Martinelli, Roberto and Toninelli \cite[Theorem~6.4]{CMRT}. They proved that there is $C=C(d)$ such that, for all sufficiently small $q>0$,
+\begin{equation}\label{eq:cmrt}
+\begin{aligned}
+C^{-1}q^3&\le\gap\le Cq^3 && (d=1),\\
+C^{-1}q^2/\log(1/q)&\le\gap\le Cq^2 && (d=2),\\
+C^{-1}q^2&\le\gap\le Cq^{1+2/d} && (d\ge3),
+\end{aligned}
+\end{equation}
+where $\gap=1/\Trel$ is the spectral gap of the generator $\mathcal L$ of the dynamics (\Cref{sec:setting}). Shapira \cite[Theorem~1.1]{Sh} settled dimension $d\ge3$ by proving $\gap\le Cq^2$ there, with the number of clusters of empty sites as a test function. Shapira also proved \cite[Theorem~1.2]{Sh} $\gap\le Cq/\bar\tau_{\mathrm{meet}}$ for FA-1f on a finite graph with $c/q$ vertices, under the product measure conditioned to have an empty site, where $\bar\tau_{\mathrm{meet}}$ is the mean time for two random walks started at uniform positions to come within distance one. On the two-dimensional torus of side $cq^{-1/2}$ this bound is of order $q^2/\log(1/q)$. Shapira observes \cite[Remarks~1.3 and~4.4]{Sh} that this is the order of the lower bound of Hartarsky, Martinelli and Toninelli \cite{HMT}, and suggests from this that $q^2/\log(1/q)$ is the order of the gap on $\Z^2$ as well. Pillai and Smith studied mixing times of the same dynamics on the torus $(\Z/L\Z)^d$ at density $q$ of order $L^{-d}$, for $d\ge3$ \cite{PS17} and for $d=2$ \cite{PS19}. These finite-volume results concern a volume that holds a bounded number of empty sites on average, and Shapira notes that the ideas of the proof of \cite[Theorem~1.2]{Sh} do not seem to adapt easily to $\Z^2$. The two-dimensional problem appears as Conjecture~4.3 in the monograph of Hartarsky and Toninelli \cite{HT} and as Conjecture~2.10 in Martinelli's survey \cite{Ma}.
+
+\begin{conjecture}[{\cite[Conjecture~4.3]{HT}}]\label{conj:HT}
+For FA-1f on $\Z^2$ there exists $C>0$ such that for $q$ small enough,
+$1/C\le q^2\,\Trel/\log(1/q)\le C$.
+\end{conjecture}
+
+The upper bound on $\Trel$ is the lower bound on the gap in \eqref{eq:cmrt}. We prove the matching lower bound on $\Trel$.
+
+\begin{theorem}\label{thm:main}
+Let $0<q\le 1/64$, let $R=\lfloor 1/(4\sqrt q)\rfloor$ and $H_R=\sum_{r=1}^R 1/r$. The spectral gap of FA-1f on $\Z^2$ with density $q$ of empty sites satisfies
+\[
+\gap\le\frac{320}{9}\,\frac{q^2}{H_R}.
+\]
+In particular $\Trel\ge \frac{9}{640}\,q^{-2}\log\bigl(1/(16q)\bigr)$ for $0<q\le1/64$.
+\end{theorem}
+
+\begin{corollary}\label{cor:main}
+\Cref{conj:HT} holds: there is $C>0$ such that $C^{-1}q^{-2}\log(1/q)\le\Trel\le Cq^{-2}\log(1/q)$ for all $q$ small enough.
+\end{corollary}
+
+\begin{proof}
+The upper bound is \eqref{eq:cmrt} for $d=2$, and the lower bound is \Cref{thm:main}.
+\end{proof}
+
+The proof is a variational upper bound on the gap. In a large box, let $K_r$ be the number of clusters of empty sites when two empty sites are joined if their $\ell^1$ distance is at most $r$. The test function is
+\[
+F=\frac1{H_R}\sum_{r=1}^R\frac{K_r}{r}.
+\]
+Unlike the torus bounds above, $F$ is a local function on $\Z^2$, and its Rayleigh quotient is computed under the infinite-volume product measure with no conditioning. The count $K_1$ alone is the cluster count of Shapira; with it the argument below gives $\gap\le Cq^2$ and no logarithm (\Cref{rem:single}). The logarithm comes from the range of scales. Making a site next to an empty site $y$ empty changes $K_r$ only when another empty site lies at distance exactly $r$, which has probability of order $qr$. With weight $1/r$, radius $r$ contributes about $q/r$ to the second moment of the change, so the Dirichlet form of $\sum_rK_r/r$ grows like $\log R$. Each radius also contributes about $q/r$ per site to the covariance with the number $S$ of empty sites in the box, so the covariance grows like $\log R$, and the lower bound $\Cov(\sum_rK_r/r,S)^2/\Var(S)$ on the variance grows like $(\log R)^2$. The Rayleigh quotient is therefore smaller by a factor of order $\log R$ than for a single radius. In the proof this appears as the bound
+\[
+\E\bigl[c_x(\Delta_xF)^2\bigr]\le4q\Bigl(\frac{q}{H_R^2}\sum_{r=1}^R\frac{4r}{r^2}+\frac{16q^2R^2}{H_R^2}\Bigr)\le\frac{20q^2}{H_R}
+\]
+for $x$ away from the boundary of the box (\Cref{lem:B,lem:energy}, with $c_x$ and $\Delta_x$ as in \Cref{sec:setting}); the sum over $r$ equals $4H_R$, and for the single radius $r=1$ the corresponding bound is $13q^2$ (\Cref{rem:single}). The choice $R\asymp q^{-1/2}$ is the largest for which a ball of radius $R$ typically contains no empty site.
+
+\section{Setting}\label{sec:setting}
+
+Configurations are $\omega\in\{0,1\}^{\Z^2}$, where $\omega_x=0$ means that $x$ is empty. Write $\xi_x=1-\omega_x$ for the indicator that $x$ is empty. The equilibrium measure $\mu$ is the product measure under which the $\xi_x$ are independent Bernoulli($q$) variables. For $x\in\Z^2$ let $c_x=\1\{\xi_y=1\text{ for some }y\sim x\}$, where $y\sim x$ means $|x-y|_1=1$ and $|\cdot|_1$ is the $\ell^1$ norm. The generator of FA-1f acts on local functions by
+\[
+\mathcal Lf=\sum_{x\in\Z^2}c_x\bigl(\mu_x(f)-f\bigr),
+\]
+where $\mu_x(f)$ is the average of $f$ over $\omega_x$ with the other coordinates fixed. Following \cite{CMRT,HT}, its Dirichlet form is
+\[
+\mathcal D(f)=\sum_{x\in\Z^2}\mu\bigl(c_x\Var_x(f)\bigr),
+\]
+where $\Var_x$ is the variance in $\omega_x$ with the other coordinates fixed, and
+\[
+\gap=\inf\Bigl\{\frac{\mathcal D(f)}{\Var(f)}:\ f\in\mathrm{Dom}(\mathcal L),\ \Var(f)\ne0\Bigr\}
+\]
+(see \cite[(2.8)]{CMRT}). Local functions lie in $\mathrm{Dom}(\mathcal L)$, so $\gap\le\mathcal D(f)/\Var(f)$ for every local nonconstant $f$.
+For a function $f$ write $\Delta_xf=f(\xi_x\leftarrow1)-f(\xi_x\leftarrow0)$; it does not depend on $\xi_x$. Since $\xi_x$ is Bernoulli($q$) and $c_x$ does not depend on $\xi_x$,
+\begin{equation}\label{eq:dirichlet}
+\mathcal D(f)=q(1-q)\sum_{x\in\Z^2}\E\bigl[c_x(\Delta_xf)^2\bigr].
+\end{equation}
+Expectations $\E$ are with respect to $\mu$ throughout.
+
+\section{The test function}
+
+Fix $q\le1/64$, so that $R=\lfloor1/(4\sqrt q)\rfloor\ge2$, and write $H=H_R$. Note that
+\begin{equation}\label{eq:qR}
+qR^2\le\tfrac1{16}.
+\end{equation}
+Let $L\ge1$ and $\Lambda=\{1,\dots,L\}^2$. For $r\ge1$ let $G_r$ be the graph whose vertices are the empty sites of $\Lambda$, two of them joined when their $\ell^1$ distance is at most $r$, and let $K_r$ be the number of clusters of $G_r$, that is, of its connected components (with $K_r=0$ when $\Lambda$ has no empty site). Define
+\[
+F=\frac1H\sum_{r=1}^R\frac{K_r}{r}.
+\]
+$F$ depends only on the sites of $\Lambda$, so it is a local function, and $\Delta_xF=0$ for $x\notin\Lambda$. All expectations below are with respect to the infinite-volume measure $\mu$; only the test function is localized.
+
+Fix $x\in\Lambda$ and a configuration outside $x$. When $x$ is made empty, it joins every cluster of $G_r$ that has a vertex within distance $r$ of $x$, and nothing else changes. If $k_r$ is the number of such clusters, then
+\begin{equation}\label{eq:jump}
+\Delta_xK_r=1-k_r.
+\end{equation}
+Each cluster counted by $k_r$ contains an empty site of $\Lambda$ at distance between $1$ and $r$ from $x$, and distinct clusters contain distinct such sites.
+
+\section{The variance}
+
+\begin{lemma}\label{lem:var}
+$\Var(F)\ge\frac9{16}\,q(1-q)\,|\Lambda|$.
+\end{lemma}
+
+\begin{proof}
+For $x\in\Lambda$ and $r\le R$, the number $k_r$ in \eqref{eq:jump} is at most the number of empty sites $z\ne x$ with $|z-x|_1\le r$. There are at most $\sum_{s=1}^r4s=2r(r+1)\le4r^2$ such sites, so by \eqref{eq:qR}
+\[
+\E k_r\le4qr^2\le4qR^2\le\tfrac14,
+\qquad
+\E\Delta_xK_r\ge\tfrac34,
+\qquad
+\E\Delta_xF=\frac1H\sum_{r=1}^R\frac{\E\Delta_xK_r}{r}\ge\tfrac34 .
+\]
+Let $S=\sum_{x\in\Lambda}\xi_x$. Conditioning on $(\xi_y)_{y\ne x}$, and using that $\xi_x$ is independent of them,
+\[
+\Cov(F,\xi_x)=\E\bigl[\,q\,F(\xi_x\leftarrow1)-q\bigl(qF(\xi_x\leftarrow1)+(1-q)F(\xi_x\leftarrow0)\bigr)\bigr]=q(1-q)\,\E\Delta_xF .
+\]
+Summing over $x\in\Lambda$ gives $\Cov(F,S)\ge\frac34q(1-q)|\Lambda|$. Since $\Var(S)=q(1-q)|\Lambda|$, the Cauchy--Schwarz inequality $\Cov(F,S)^2\le\Var(F)\Var(S)$ gives the claim.
+\end{proof}
+
+\section{The Dirichlet form}
+
+Call $x\in\Lambda$ interior if its four nearest neighbours lie in $\Lambda$; there are at most $4L$ sites of $\Lambda$ that are not interior.
+
+\begin{lemma}\label{lem:pointwise}
+Let $x\in\Lambda$ and let $y\sim x$ be an empty site of $\Lambda$. Then for every $r\ge1$,
+\[
+0\le-\Delta_xK_r\le\sum_{\substack{z\in\Lambda\setminus\{y\}\\ |z-x|_1=r}}\xi_z .
+\]
+\end{lemma}
+
+\begin{proof}
+The cluster of $y$ is among the $k_r$ clusters joined by $x$, so $k_r\ge1$ and $-\Delta_xK_r=k_r-1\ge0$ by \eqref{eq:jump}. An empty site $z$ with $|z-x|_1\le r-1$ satisfies $|z-y|_1\le r$, so it lies in the cluster of $y$. Hence each of the other $k_r-1$ clusters contains an empty site $z\ne y$ with $|z-x|_1=r$, and these sites are distinct.
+\end{proof}
+
+The bound is deterministic and holds whatever the clusters look like outside the ball of radius $r$ around $x$. For an empty neighbour $y$ of $x$ put
+\[
+B_{xy}=\frac1H\sum_{\substack{z\in\Lambda\setminus\{y\}\\1\le|z-x|_1\le R}}\frac{\xi_z}{|z-x|_1}.
+\]
+Multiplying \Cref{lem:pointwise} by $1/(Hr)$ and summing over $r\le R$ gives $|\Delta_xF|\le B_{xy}$.
+
+\begin{lemma}\label{lem:B}
+For $x\in\Lambda$ and $y\sim x$, $\E B_{xy}^2\le 5q/H$.
+\end{lemma}
+
+\begin{proof}
+There are at most $4r$ sites at $\ell^1$ distance $r$ from $x$. Since the $\xi_z$ are independent Bernoulli($q$),
+\[
+\Var(B_{xy})\le\frac{q}{H^2}\sum_{r=1}^R4r\cdot\frac1{r^2}=\frac{4q}{H},
+\qquad
+\E B_{xy}\le\frac{q}{H}\sum_{r=1}^R4r\cdot\frac1r=\frac{4qR}{H}.
+\]
+Hence $\E B_{xy}^2\le 4q/H+16q^2R^2/H^2\le 4q/H+q/H^2$ by \eqref{eq:qR}, and $H\ge1$.
+\end{proof}
+
+\begin{lemma}\label{lem:energy}
+If $x\in\Lambda$ is interior, then $\E[c_x(\Delta_xF)^2]\le 20q^2/H$. If $x\in\Lambda$ is not interior, then $\E[c_x(\Delta_xF)^2]\le 2$.
+\end{lemma}
+
+\begin{proof}
+Let $x$ be interior. If $c_x=1$, some neighbour $y$ of $x$ is empty, and it lies in $\Lambda$; then $(\Delta_xF)^2\le B_{xy}^2$. Therefore
+\[
+c_x(\Delta_xF)^2\le\sum_{y\sim x}\xi_yB_{xy}^2 .
+\]
+The variable $B_{xy}$ does not involve $\xi_y$, because $y$ is excluded from its sum. So $\E[\xi_yB_{xy}^2]=q\,\E B_{xy}^2\le 5q^2/H$ by \Cref{lem:B}, and summing over the four neighbours gives the first bound.
+
+For any $x\in\Lambda$, let $V$ be the number of empty sites $z\in\Lambda$ with $1\le|z-x|_1\le R$. By \eqref{eq:jump}, $|\Delta_xK_r|\le1+k_r\le1+V$ for every $r\le R$, so $|\Delta_xF|\le1+V$. As in the proof of \Cref{lem:var}, $\E V\le4qR^2\le\frac14$, and $\Var V\le\E V$, so $\E[(1+V)^2]\le1+2\E V+\E V+(\E V)^2<2$. Using $c_x\le1$ gives the second bound.
+\end{proof}
+
+\section{Proof of \texorpdfstring{\Cref{thm:main}}{Theorem 1.2}}
+
+By \eqref{eq:dirichlet}, \Cref{lem:energy}, and the fact that $\Delta_xF=0$ outside $\Lambda$,
+\[
+\mathcal D(F)\le q(1-q)\Bigl(|\Lambda|\,\frac{20q^2}{H}+8L\Bigr).
+\]
+Dividing by the bound of \Cref{lem:var} and using $|\Lambda|=L^2$,
+\[
+\gap\le\frac{\mathcal D(F)}{\Var(F)}\le\frac{16}{9}\Bigl(\frac{20q^2}{H}+\frac8L\Bigr).
+\]
+The left side does not depend on $L$. Letting $L\to\infty$ gives $\gap\le\frac{320}{9}q^2/H$.
+
+For the second statement, $H\ge\int_1^{R+1}dt/t=\log(R+1)$ and $R+1>1/(4\sqrt q)$, so $H\ge\frac12\log(1/q)-\log4=\frac12\log\bigl(1/(16q)\bigr)$, which is positive for $q\le1/64$. Hence $\Trel=1/\gap\ge\frac9{320}H q^{-2}\ge\frac9{640}q^{-2}\log\bigl(1/(16q)\bigr)$. \qed
+
+\section{Remarks}
+
+\begin{remark}
+The bound $|\Delta_xF|\le B_{xy}$ is an equality in the following configuration. Let $e_1=(1,0)$, $y=x-e_1$ and $z=x+re_1$ with $1\le r\le R$, and suppose that $y$ and $z$ are the only empty sites of $\Lambda$. Since $|y-z|_1=r+1$, the sites $y$ and $z$ lie in one cluster of $G_s$ for $s\ge r+1$ and in two clusters for $s\le r$. For $s<r$ the site $z$ is farther than $s$ from $x$. Hence making $x$ empty merges two clusters at radius $s=r$ only, and $\Delta_xF=-1/(Hr)$. In this configuration \Cref{lem:pointwise} holds with equality for every $s$.
+\end{remark}
+
+\begin{remark}\label{rem:single}
+With a single radius the argument gives no logarithm. For the test function $K_1$, the number of clusters of $G_1$, the same steps give $\Var(K_1)\ge\frac9{16}q(1-q)|\Lambda|$ and $\E[c_x(\Delta_xK_1)^2]\le4q(3q+9q^2)\le13q^2$ at interior sites (the last step uses $q\le1/36$), hence $\gap\le\frac{208}{9}q^2$, the upper bound already in \eqref{eq:cmrt}. In $\sum_{r\le R}K_r/r$, radius $r$ adds a term of order $q^2/r$ to $\E[c_x(\Delta_x\cdot)^2]$ at each site and a term of order $q/r$ per site to the covariance with $S$, and the covariance enters the variance bound squared.
+\end{remark}
+
+\begin{remark}
+The radius $R$ cannot be taken much larger than $q^{-1/2}$ in this argument: \Cref{lem:var} uses that a ball of radius $R$ around a site contains on average fewer than one empty site. Taking $R=\lfloor\delta q^{-1/2}\rfloor$ for small $\delta$ changes only the constants.
+\end{remark}
+
+\section*{Acknowledgments and funding}
+
+The research presented in this paper was supported by the European Research Council (ERC) under the European Union's Horizon Europe research and innovation programme (grant agreement No.\ 101041711). It was also supported by the Simons Foundation, by Heights Labs, by Convex Nexus Capital, and by the Israel Science Foundation (grants 2258/19 and 4101/25).
+
+This work was done by multiple AI agents, Claude (Anthropic) and Codex (OpenAI), connected to Math Brain~\cite{MathBrainRepo} and working together inside the Brain framework~\cite{BrainFramework}, a shared, persistent memory in which the agents record claims, proofs, failed attempts and methods, retrieve one another's results, coordinate who works on what, and audit each other's work. The method is described in~\cite{MathBrainPaper}.
+
+\section*{Declaration of generative AI and AI-assisted technologies}
+
+This paper is part of a broader research project on proving open problems with AI systems. The test function and the proof were found with Codex (OpenAI), and the text was drafted and the proofs checked with Claude (Anthropic), both working under the author's direction. The proof rests on results of the mathematicians cited: the model of Fredrickson and Andersen \cite{FA}, the bounds of Cancrini, Martinelli, Roberto and Toninelli \cite{CMRT}, the cluster-count test function of Shapira \cite{Sh}, and the conjecture of Hartarsky and Toninelli \cite{HT}. The author directed the work and is responsible for the content of the paper and for decisions concerning its dissemination.
+
+\section*{Data availability}
+
+Data sharing is not applicable, as no datasets were generated or analysed.
+
+\section*{Declaration of competing interest}
+
+The author holds equity in Heights Labs and Convex Nexus Capital and has a management role at Convex Nexus Capital.
+
+\begin{thebibliography}{99}
+
+\bibitem{CMRT}
+N.~Cancrini, F.~Martinelli, C.~Roberto and C.~Toninelli,
+Kinetically constrained spin models,
+\emph{Probab. Theory Related Fields} \textbf{140} (2008), 459--504,
+\href{https://doi.org/10.1007/s00440-007-0072-3}{doi:10.1007/s00440-007-0072-3}.
+
+\bibitem{FA}
+G.~H.~Fredrickson and H.~C.~Andersen,
+Kinetic Ising model of the glass transition,
+\emph{Phys. Rev. Lett.} \textbf{53} (1984), 1244--1247,
+\href{https://doi.org/10.1103/PhysRevLett.53.1244}{doi:10.1103/PhysRevLett.53.1244}.
+
+\bibitem{HT}
+I.~Hartarsky and C.~Toninelli,
+\emph{Kinetically Constrained Models},
+arXiv:2412.13634v1 (2024); published in SpringerBriefs in Mathematical Physics, Springer, Cham, 2025,
+\href{https://doi.org/10.1007/978-3-031-93115-4}{doi:10.1007/978-3-031-93115-4}.
+
+\bibitem{HMT}
+I.~Hartarsky, F.~Martinelli and C.~Toninelli,
+Coalescing and branching simple symmetric exclusion process,
+\emph{Ann. Appl. Probab.} \textbf{32} (2022), 2841--2859,
+\href{https://doi.org/10.1214/21-AAP1750}{doi:10.1214/21-AAP1750}.
+
+\bibitem{Ma}
+F.~Martinelli,
+Kinetically constrained spin models: a short survey,
+in \emph{Proceedings of the International Congress of Mathematicians 2026}, vol.~5, SIAM, 2026, 497--515,
+\href{https://doi.org/10.1137/25M180425X}{doi:10.1137/25M180425X}.
+
+\bibitem{PS17}
+N.~S.~Pillai and A.~Smith,
+Mixing times for a constrained Ising process on the torus at low density,
+\emph{Ann. Probab.} \textbf{45} (2017), 1003--1070,
+\href{https://doi.org/10.1214/15-AOP1080}{doi:10.1214/15-AOP1080}.
+
+\bibitem{PS19}
+N.~S.~Pillai and A.~Smith,
+Mixing times for a constrained Ising process on the two-dimensional torus at low density,
+\emph{Ann. Inst. Henri Poincar\'e Probab. Stat.} \textbf{55} (2019), 1649--1678,
+\href{https://doi.org/10.1214/18-AIHP930}{doi:10.1214/18-AIHP930}.
+
+\bibitem{Sh}
+A.~Shapira,
+A note on the spectral gap of the Fredrickson--Andersen one spin facilitated model,
+\emph{J. Stat. Phys.} \textbf{181} (2020), 2346--2352,
+\href{https://doi.org/10.1007/s10955-020-02666-1}{doi:10.1007/s10955-020-02666-1}.
+
+\bibitem{MathBrainRepo} Y.~Shmalo, \emph{Math Brain: public snapshot, code and tests}, 2026, \url{https://github.com/yspennstate/math-brain-public}.
+
+\bibitem{MathBrainPaper} Y.~Shmalo, \emph{Math Brain: shared, auditable memory for multi-agent mathematical research}, October 2026, \url{https://github.com/yspennstate/math-brain-public/tree/main/papers/math-brain-2026-10-24}.
+
+\bibitem{BrainFramework} Y.~Shmalo, \emph{Brain Framework}, public software repository, 2026, \url{https://github.com/yspennstate/brain-framework-public}.
+
+\end{thebibliography}
+
+\end{document}
