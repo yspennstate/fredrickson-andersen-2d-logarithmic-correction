@@ -81,7 +81,7 @@ In particular $\Trel\ge \frac{9}{640}\,q^{-2}\log\bigl(1/(16q)\bigr)$ for $0<q\l
 The upper bound is \eqref{eq:cmrt} for $d=2$, and the lower bound is \Cref{thm:main}.
 \end{proof}
 
-The proof is a variational upper bound on the gap. In a large box, let $K_r$ be the number of clusters of empty sites when two empty sites are joined if their $\ell^1$ distance is at most $r$. The test function is
+The proof is a variational upper bound on the gap. In a large box, let $K_r$ be the number of clusters of empty sites when two empty sites are adjacent if their $\ell^1$ distance is at most $r$. The test function is
 \[
 F=\frac1{H_R}\sum_{r=1}^R\frac{K_r}{r}.
 \]
@@ -118,13 +118,13 @@ Fix $q\le1/64$, so that $R=\lfloor1/(4\sqrt q)\rfloor\ge2$, and write $H=H_R$. N
 \begin{equation}\label{eq:qR}
 qR^2\le\tfrac1{16}.
 \end{equation}
-Let $L\ge1$ and $\Lambda=\{1,\dots,L\}^2$. For $r\ge1$ let $G_r$ be the graph whose vertices are the empty sites of $\Lambda$, two of them joined when their $\ell^1$ distance is at most $r$, and let $K_r$ be the number of clusters of $G_r$, that is, of its connected components (with $K_r=0$ when $\Lambda$ has no empty site). Define
+Let $L\ge1$ and $\Lambda=\{1,\dots,L\}^2$. For $r\ge1$ let $G_r$ be the graph whose vertices are the empty sites of $\Lambda$, two of them adjacent when their $\ell^1$ distance is at most $r$, and let $K_r$ be the number of clusters of $G_r$, that is, of its connected components (with $K_r=0$ when $\Lambda$ has no empty site). Define
 \[
 F=\frac1H\sum_{r=1}^R\frac{K_r}{r}.
 \]
 $F$ depends only on the sites of $\Lambda$, so it is a local function, and $\Delta_xF=0$ for $x\notin\Lambda$. All expectations below are with respect to the infinite-volume measure $\mu$; only the test function is localized.
 
-Fix $x\in\Lambda$ and a configuration outside $x$. When $x$ is made empty, it joins every cluster of $G_r$ that has a vertex within distance $r$ of $x$, and nothing else changes. If $k_r$ is the number of such clusters, then
+Fix $x\in\Lambda$ and a configuration outside $x$. When $x$ is made empty, the clusters of $G_r$ that have a vertex within distance $r$ of $x$ merge with $\{x\}$ into one cluster, and the other clusters do not change. If $k_r$ is the number of such clusters, then
 \begin{equation}\label{eq:jump}
 \Delta_xK_r=1-k_r.
 \end{equation}
@@ -164,14 +164,17 @@ Let $x\in\Lambda$ and let $y\sim x$ be an empty site of $\Lambda$. Then for ever
 \end{lemma}
 
 \begin{proof}
-The cluster of $y$ is among the $k_r$ clusters joined by $x$, so $k_r\ge1$ and $-\Delta_xK_r=k_r-1\ge0$ by \eqref{eq:jump}. An empty site $z$ with $|z-x|_1\le r-1$ satisfies $|z-y|_1\le r$, so it lies in the cluster of $y$. Hence each of the other $k_r-1$ clusters contains an empty site $z\ne y$ with $|z-x|_1=r$, and these sites are distinct.
+The cluster of $y$ is among the $k_r$ clusters merged by $x$, so $k_r\ge1$ and $-\Delta_xK_r=k_r-1\ge0$ by \eqref{eq:jump}. An empty site $z$ with $|z-x|_1\le r-1$ satisfies $|z-y|_1\le r$, so it lies in the cluster of $y$. Hence each of the other $k_r-1$ clusters contains an empty site $z\ne y$ with $|z-x|_1=r$, and these sites are distinct.
 \end{proof}
 
-The bound is deterministic and holds whatever the clusters look like outside the ball of radius $r$ around $x$. For an empty neighbour $y$ of $x$ put
+The bound is deterministic and holds whatever the clusters look like outside the ball of radius $r$ around $x$. For $x\in\Lambda$ and $y\sim x$ put
 \[
 B_{xy}=\frac1H\sum_{\substack{z\in\Lambda\setminus\{y\}\\1\le|z-x|_1\le R}}\frac{\xi_z}{|z-x|_1}.
 \]
-Multiplying \Cref{lem:pointwise} by $1/(Hr)$ and summing over $r\le R$ gives $|\Delta_xF|\le B_{xy}$.
+The variable $B_{xy}$ does not depend on $\xi_x$ or on $\xi_y$. If $y\in\Lambda$ and $y$ is empty, then multiplying \Cref{lem:pointwise} by $1/(Hr)$ and summing over $r\le R$ gives
+\begin{equation}\label{eq:B}
+|\Delta_xF|\le B_{xy}.
+\end{equation}
 
 \begin{lemma}\label{lem:B}
 For $x\in\Lambda$ and $y\sim x$, $\E B_{xy}^2\le 5q/H$.
@@ -192,11 +195,11 @@ If $x\in\Lambda$ is interior, then $\E[c_x(\Delta_xF)^2]\le 20q^2/H$. If $x\in\L
 \end{lemma}
 
 \begin{proof}
-Let $x$ be interior. If $c_x=1$, some neighbour $y$ of $x$ is empty, and it lies in $\Lambda$; then $(\Delta_xF)^2\le B_{xy}^2$. Therefore
+Let $x$ be interior. If $c_x=1$, some neighbour $y$ of $x$ is empty, and it lies in $\Lambda$; then $(\Delta_xF)^2\le B_{xy}^2$ by \eqref{eq:B}. Therefore
 \[
 c_x(\Delta_xF)^2\le\sum_{y\sim x}\xi_yB_{xy}^2 .
 \]
-The variable $B_{xy}$ does not involve $\xi_y$, because $y$ is excluded from its sum. So $\E[\xi_yB_{xy}^2]=q\,\E B_{xy}^2\le 5q^2/H$ by \Cref{lem:B}, and summing over the four neighbours gives the first bound.
+Since $B_{xy}$ does not depend on $\xi_y$, $\E[\xi_yB_{xy}^2]=q\,\E B_{xy}^2\le 5q^2/H$ by \Cref{lem:B}, and summing over the four neighbours gives the first bound.
 
 For any $x\in\Lambda$, let $V$ be the number of empty sites $z\in\Lambda$ with $1\le|z-x|_1\le R$. By \eqref{eq:jump}, $|\Delta_xK_r|\le1+k_r\le1+V$ for every $r\le R$, so $|\Delta_xF|\le1+V$. As in the proof of \Cref{lem:var}, $\E V\le4qR^2\le\frac14$, and $\Var V\le\E V$, so $\E[(1+V)^2]\le1+2\E V+\E V+(\E V)^2<2$. Using $c_x\le1$ gives the second bound.
 \end{proof}
@@ -218,7 +221,7 @@ For the second statement, $H\ge\int_1^{R+1}dt/t=\log(R+1)$ and $R+1>1/(4\sqrt q)
 \section{Remarks}
 
 \begin{remark}
-The bound $|\Delta_xF|\le B_{xy}$ is an equality in the following configuration. Let $e_1=(1,0)$, $y=x-e_1$ and $z=x+re_1$ with $1\le r\le R$, and suppose that $y$ and $z$ are the only empty sites of $\Lambda$. Since $|y-z|_1=r+1$, the sites $y$ and $z$ lie in one cluster of $G_s$ for $s\ge r+1$ and in two clusters for $s\le r$. For $s<r$ the site $z$ is farther than $s$ from $x$. Hence making $x$ empty merges two clusters at radius $s=r$ only, and $\Delta_xF=-1/(Hr)$. In this configuration \Cref{lem:pointwise} holds with equality for every $s$.
+The bound \eqref{eq:B} is an equality in the following configuration. Let $e_1=(1,0)$, $y=x-e_1$ and $z=x+re_1$ with $1\le r\le R$, and suppose that $y$ and $z$ are the only empty sites of $\Lambda$. Since $|y-z|_1=r+1$, the sites $y$ and $z$ lie in one cluster of $G_s$ for $s\ge r+1$ and in two clusters for $s\le r$. For $s<r$ the site $z$ is farther than $s$ from $x$. Hence making $x$ empty merges two clusters at radius $s=r$ only, and $\Delta_xF=-1/(Hr)$. In this configuration \Cref{lem:pointwise} holds with equality for every $s$.
 \end{remark}
 
 \begin{remark}\label{rem:single}
